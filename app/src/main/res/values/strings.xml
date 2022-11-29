@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GodMode</string>
+    <string name="home_text">БЕРИ И \nДЕЛАЙ</string>
+    <string name="name">Name</string>
+    <string name="time">time</string>
+    <string name="adddBut">+</string>
+</resources>

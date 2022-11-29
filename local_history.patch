@@ -1,0 +1,196 @@
+Index: app/src/main/java/com/bbb/godmode/HomeScreen.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/bbb/godmode/HomeScreen.java b/app/src/main/java/com/bbb/godmode/HomeScreen.java
+--- a/app/src/main/java/com/bbb/godmode/HomeScreen.java	
++++ b/app/src/main/java/com/bbb/godmode/HomeScreen.java	(date 1668258155932)
+@@ -4,25 +4,12 @@
+ 
+ import androidx.annotation.NonNull;
+ import androidx.appcompat.app.AppCompatActivity;
+-import androidx.core.app.NotificationCompat;
+ import androidx.recyclerview.widget.LinearLayoutManager;
+ import androidx.recyclerview.widget.RecyclerView;
+-import androidx.work.Data;
+-import androidx.work.PeriodicWorkRequest;
+-import androidx.work.WorkManager;
+ 
+-import android.app.AlarmManager;
+-import android.app.Notification;
+-import android.app.NotificationChannel;
+-import android.app.NotificationManager;
+-import android.app.PendingIntent;
+ import android.app.TimePickerDialog;
+-import android.content.Context;
+ import android.content.Intent;
+ import android.content.SharedPreferences;
+-import android.graphics.Bitmap;
+-import android.graphics.BitmapFactory;
+-import android.os.Build;
+ import android.os.Bundle;
+ import android.util.Log;
+ import android.view.View;
+@@ -30,12 +17,8 @@
+ import android.widget.ImageButton;
+ import android.widget.TextView;
+ import android.widget.TimePicker;
+-import android.widget.Toast;
+ 
+ import java.util.ArrayList;
+-import java.util.Calendar;
+-import java.util.Date;
+-import java.util.concurrent.TimeUnit;
+ 
+ public class HomeScreen extends AppCompatActivity {
+     SharedPreferences pref;
+@@ -55,7 +38,6 @@
+ 
+     @Override
+     protected void onCreate(Bundle savedInstanceState) {
+-
+         super.onCreate(savedInstanceState);
+         setTheme(R.style.AppTheme);
+         binding = com.bbb.godmode.databinding.ActivityHomeBinding.inflate(getLayoutInflater());
+@@ -76,8 +58,8 @@
+ //        Log.d("AABE", "B");
+         items_view.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+         Log.d("AABE", "C");
+-        adapter = new ItemAdapter(DataSet.items);
+-        Log.d("AABE", String.valueOf(DataSet.items.size()));
++        adapter = new ItemAdapter(Data.items);
++        Log.d("AABE", String.valueOf(Data.items.size()));
+         items_view.setAdapter(adapter);
+         Log.d("AABE", "D");
+ 
+@@ -106,86 +88,17 @@
+     {
+         Task item = new Task(String.valueOf(taskText.getText()),hour, minute);
+         Log.d("AABE", item.toString());
+-        DataSet.items.add(0, item);
+-
+-//         Настройка уведомлений
+-//         Задание календаря
+-        Calendar calendar = Calendar.getInstance();
+-        calendar.set(Calendar.SECOND, 0);
+-        calendar.set(Calendar.MILLISECOND, 0);
+-        calendar.set(Calendar.MINUTE, minute);
+-        calendar.set(Calendar.HOUR_OF_DAY, hour);
+-
+-
+-//        Date time = calendar.getTime();
+-//        int hour1 = time.getHours();
+-//        int minute1 = time.getMinutes();
+-//        final String TAG = "workmng";
+-
+-        Calendar current = Calendar.getInstance();
+-        Calendar cal = Calendar.getInstance();
+-        cal.set(Calendar.HOUR, hour);
+-        cal.set(Calendar.MINUTE, minute);
+-        Context context = getApplicationContext();
+-        scheduleNotification(getNotification(), cal);
+-//        Log.d(TAG, "Data");
+-//        Data myData = new Data.Builder()
+-//                .putInt("Hour", hour)
+-//                .putInt("Minute", minute)
+-//                .putString("text", item.text)
+-//                .build();
+-//        Log.d(TAG, "NW");
+-//                PeriodicWorkRequest myWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 15, TimeUnit.MINUTES)
+-//                .setInputData(myData)
+-//                .build();
+-//        Log.d(TAG, "NW");
+-//        PeriodicWorkRequest myWorkRequest = new PeriodicWorkRequest.Builder(MyWorker.class, 24, TimeUnit.HOURS, 23*60+50, TimeUnit.MINUTES)
+-//                .setInputData(myData)
+-//                .build();
+-//
+-//        WorkManager.getInstance().enqueue(myWorkRequest);
+-
++        Data.items.add(0, item);
+         taskText.setText("");
+         adapter.notifyDataSetChanged();
+-    }
+-
+-    private Notification getNotification() {
+-        Intent intent = new Intent(getBaseContext(), NotificationPublisherBroadcastReceiver.class);
+-//        intent.putExtra("title", /*getString(R.string.notificationtitle)*/);
+-//        intent.putExtra("text", getString(/*R.string.notificationtext)*/);
+-        PendingIntent pIntent = PendingIntent.getActivity(this, 0, intent, 0);
+-        NotificationCompat.Builder builder = new NotificationCompat.Builder(getBaseContext())
+-                .setContentTitle("Rsba")
+-                .setContentText("Nigga")
+-                .setContentIntent(pIntent)
+-                .setAutoCancel(true)
+-                .setDefaults(Notification.DEFAULT_SOUND);
+-        return builder.build();
+-    }
+-
+-    private void scheduleNotification(Notification notification, Calendar targetCal){
+-        Intent notificationIntent = new Intent(getBaseContext(), NotificationPublisherBroadcastReceiver.class);
+-        notificationIntent.putExtra(NotificationPublisherBroadcastReceiver.NOTIFICATION_ID, 1);
+-        notificationIntent.putExtra(NotificationPublisherBroadcastReceiver.NOTIFICATION, notification);
+-        PendingIntent pendingIntent = PendingIntent.getBroadcast(getBaseContext(), 0, notificationIntent, 0);
+-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, targetCal.getTimeInMillis(), pendingIntent);
+-    }
+-
+-    private void createChannelIfNeeded(NotificationManager notificationManager) {
+-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+-            NotificationChannel notificationChannel = new NotificationChannel("100", "100", NotificationManager.IMPORTANCE_DEFAULT);
+-            notificationManager.createNotificationChannel(notificationChannel);
+-        }
+-    }
+-
++    };
+ 
+     public void toNotes(View view)
+     {
+         Intent intent = new Intent(this, Notes.class);
+ 
+         startActivity(intent);
+-
++        
+         finish();
+     }
+ 
+@@ -205,13 +118,13 @@
+     {
+         SharedPreferences.Editor editor = pref.edit();
+         editor.clear();
+-        editor.putInt("TASKS_SIZE", DataSet.items.size());
+-        Log.d("AAAAA", "SAVE " +String.valueOf(DataSet.items.size()) + " | " + String.valueOf(DataSet.notes.size()));
+-        for(int i = 0; i < DataSet.items.size(); i++) {
+-            editor.putString("TASKS_TEXT"+String.valueOf(i), DataSet.items.get(i).text);
+-            editor.putInt("TASKS_HOUR"+String.valueOf(i), DataSet.items.get(i).hour);
+-            editor.putInt("TASKS_MINUTE"+String.valueOf(i), DataSet.items.get(i).minute);
+-            editor.putBoolean("TASKS_DONE"+String.valueOf(i), DataSet.items.get(i).done);
++        editor.putInt("TASKS_SIZE", Data.items.size());
++        Log.d("AAAAA", "SAVE " +String.valueOf(Data.items.size()) + " | " + String.valueOf(Data.notes.size()));
++        for(int i = 0; i < Data.items.size(); i++) {
++            editor.putString("TASKS_TEXT"+String.valueOf(i), Data.items.get(i).text);
++            editor.putInt("TASKS_HOUR"+String.valueOf(i), Data.items.get(i).hour);
++            editor.putInt("TASKS_MINUTE"+String.valueOf(i), Data.items.get(i).minute);
++            editor.putBoolean("TASKS_DONE"+String.valueOf(i), Data.items.get(i).done);
+         }
+         editor.apply();
+     }
+@@ -219,15 +132,15 @@
+     private void loadTasks()
+     {
+ 
+-        if(DataSet.items.size() == 0) {
++        if(Data.items.size() == 0) {
+             int items_size = pref.getInt("TASKS_SIZE", 0);
+-            Log.d("AAAAA", "LOAD " + String.valueOf(items_size) + " | " + String.valueOf(DataSet.notes.size()));
++            Log.d("AAAAA", "LOAD " + String.valueOf(items_size) + " | " + String.valueOf(Data.notes.size()));
+             for (int i = 0; i < items_size; i++) {
+                 String text = pref.getString("TASKS_TEXT" + String.valueOf(i), "");
+                 int hour = pref.getInt("TASKS_HOUR"+String.valueOf(i), 0);
+                 int minute = pref.getInt("TASKS_MINUTE"+String.valueOf(i), 0);
+                 boolean done = pref.getBoolean("TASKS_DONE"+String.valueOf(i), false);
+-                DataSet.items.add( new Task(text, hour, minute, done));
++                Data.items.add( new Task(text, hour, minute, done));
+             }
+         }
+     }

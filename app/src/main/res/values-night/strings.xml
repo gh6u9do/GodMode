@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="home_text">БЕРИ И \nДЕЛАЙ</string>
+    <string name="name">Name</string>
+    <string name="time">time</string>
+    <string name="adddBut">+</string>
+</resources>

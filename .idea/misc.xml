@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/GodMode/app/src/main/res/drawable/background_splash.xml" value="0.188" />
+        <entry key="..\:/GodMode/app/src/main/res/layout/activity_home.xml" value="0.16666666666666666" />
+        <entry key="..\:/GodMode/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/GodMode/app/src/main/res/layout/activity_notes.xml" value="0.16757246376811594" />
+        <entry key="..\:/GodMode/app/src/main/res/layout/home_item.xml" value="0.22" />
+        <entry key="..\:/GodMode/app/src/main/res/layout/item_note.xml" value="0.16757246376811594" />
+      </map>
+    </option>
+  </component>
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
+</project>
